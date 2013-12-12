@@ -10,7 +10,7 @@ class Gem(Fetcher):
         Returns a list of gems available on the system.
         """
         self.context = 'gem'
-        self.regex = re.compile('([A-Za-z0-9_\-]*)\s*(\([0-9\.,\s]*\))')
+        self.regex = re.compile('([A-Za-z0-9_\-]*)\s*\(([0-9\.,\s]*)\)')
         self._load_data()
 
     def _load_data(self):
@@ -24,7 +24,8 @@ class Gem(Fetcher):
                 gem = self.regex.match(line)
                 if (gem is not None):
                     gem_name = gem.group(1)
-                    gem_version = gem.group(2)
+                    gem_version = gem.group(2).split(',')
+                    gem_version = [version.strip(' ') for version in gem_version]
                     self._gems[gem_name] = gem_version
             self._loaded(True)
         except Exception, e:
