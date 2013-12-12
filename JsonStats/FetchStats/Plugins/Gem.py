@@ -38,4 +38,4 @@ class Gem(Fetcher):
         return self._gems
 
     def dump_json(self):
-        return self.json.dumps(self.dump())
+        return self.json.dumps(self.dump(), sort_keys=True, separators=(',', ': '))
