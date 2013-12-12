@@ -22,7 +22,7 @@ class Gem(Fetcher):
         try:
             for line in self._exec(cmd).split('\n')[:-1]:
                 gem = self.regex.match(line)
-                if (gem != None):
+                if (gem is not None):
                     gem_name = gem.group(1)
                     gem_version = gem.group(2)
                     self._gems[gem_name] = gem_version
